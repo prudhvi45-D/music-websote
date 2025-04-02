@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="./images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Top 50 - Global | Spotify</title>
+    <style>
+        .songs-list {
+            padding: 2rem;
+        }
+
+        .playlist-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .playlist-image {
+            width: 232px;
+            height: 232px;
+            border-radius: 4px;
+            box-shadow: 0 4px 60px rgba(0,0,0,.5);
+        }
+
+        .playlist-info {
+            flex: 1;
+        }
+
+        .playlist-info h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .playlist-info p {
+            font-size: 1rem;
+            color: #b3b3b3;
+            margin: 0.5rem 0;
+        }
+
+        .playlist-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .playlist-actions button {
+            padding: 0.5rem 2rem;
+            border-radius: 20px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button {
+            background-color: #1db954;
+            color: black;
+        }
+
+        .play-button:hover {
+            transform: scale(1.04);
+            background-color: #1ed760;
+        }
+
+        .follow-button {
+            background-color: transparent;
+            color: white;
+            border: 1px solid #b3b3b3;
+        }
+
+        .follow-button:hover {
+            border-color: white;
+        }
+
+        .songs-table {
+            width: 100%;
+            margin-top: 2rem;
+            border-collapse: collapse;
+        }
+
+        .songs-table thead {
+            display: none;
+        }
+
+        .songs-table tbody {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .song-row {
+            display: grid;
+            grid-template-columns: 40px 1fr 1fr 100px 40px;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            position: relative;
+        }
+
+        .song-row:hover {
+            background-color: #282828;
+        }
+
+        .song-row td {
+            padding: 0.5rem;
+        }
+
+        .song-row audio {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .song-number {
+            color: #b3b3b3;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+
+        .song-image {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .song-image img {
+            width: 40px;
+            height: 40px;
+            border-radius: 4px;
+        }
+
+        .song-title {
+            color: white;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-artist {
+            color: #b3b3b3;
+            font-size: 0.875rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .song-duration {
+            color: #b3b3b3;
+            text-align: right;
+            font-size: 0.875rem;
+        }
+
+        .song-row .play-button {
+            display: none;
+            width: 20px;
+            height: 20px;
+            background-color: #1db954;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .song-row .play-button i {
+            font-size: 0.6rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .song-row:hover .song-number {
+            color: transparent;
+        }
+
+        .song-row:hover .play-button {
+            display: flex;
+        }
+
+        .song-row:hover .play-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            background-color: #1ed760;
+        }
+
+        @media screen and (max-width: 768px) {
+            .playlist-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .playlist-image {
+                width: 180px;
+                height: 180px;
+            }
+
+            .playlist-info h1 {
+                font-size: 2rem;
+            }
+
+            .playlist-actions {
+                justify-content: center;
+            }
+
+            .song-row {
+                grid-template-columns: 40px 1fr 80px 40px;
+            }
+
+            .song-artist {
+                display: none;
+            }
+        }
+
+        .mobile-home-button {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-home-button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        @media screen and (max-width: 768px) {
+            .mobile-home-button {
+                display: flex;
+            }
+
+            .songs-list {
+                padding-top: 4rem;
+            }
+
+            .playlist-header {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-home-button" onclick="window.location.href='index.html'">
+        <i class="fa-solid fa-house"></i>
+    </button>
+    <div class="main">
+        <div class="sidebar">
+            <div class="nav">
+                <div class="option">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="index.html">home</a>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search songs or artists" style="background: none; border: none; color: white; margin-left: 1rem; width: 80%; outline: none;">
+                </div>
+            </div>
+            <div class="library">
+                <div class="libopt option">
+                    <div class="lib">
+                        <img src="./images/library_icon.png">
+                        <a href="#">library</a>
+                    </div>
+                    <div class="add">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="forward">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="maincontent">
+            <div class="songs-list">
+                <div class="playlist-header">
+                    <img src="./images/card1img.jpeg" alt="Playlist Cover" class="playlist-image">
+                    <div class="playlist-info">
+                        <h1>Top 50 - Global</h1>
+                        <p>Your daily updates of the most played tracks right now.</p>
+                        <div class="playlist-actions">
+                            <button class="play-button">
+                                <i class="fa-solid fa-play"></i> Play
+                            </button>
+                            <button class="follow-button">
+                                <i class="fa-solid fa-heart"></i> FOLLOW
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table class="songs-table">
+                    <thead>
+                        <tr>
+                            <th class="song-number">#</th>
+                            <th>TITLE</th>
+                            <th>ARTIST</th>
+                            <th class="song-duration">DURATION</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="song-row" data-song-index="0">
+                            <td class="song-number">1</td>
+                            <td class="song-image">
+                                <img src="./images/peelings.jpeg" alt="Pushpa: The Rise">
+                            </td>
+                            <td class="song-title">Pushpa: The Rise - Title Track</td>
+                            <td class="song-artist">Allu Arjun, M. M. Keeravani</td>
+                            <td class="song-duration">3:45</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/Peelings.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="1">
+                            <td class="song-number">2</td>
+                            <td class="song-image">
+                                <img src="./images/kannapa.jpeg" alt="Shiva Shiva Shankara">
+                            </td>
+                            <td class="song-title">Shiva Shiva Shankara</td>
+                            <td class="song-artist">Various Artists</td>
+                            <td class="song-duration">4:20</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/Shiva Shiva Shankara.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="2">
+                            <td class="song-number">3</td>
+                            <td class="song-image">
+                                <img src="./images/img-card.jpg" alt="Param Sundari">
+                            </td>
+                            <td class="song-title">Param Sundari</td>
+                            <td class="song-artist">A.R. Rahman, Shreya Ghoshal</td>
+                            <td class="song-duration">4:15</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/param.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="3">
+                            <td class="song-number">4</td>
+                            <td class="song-image">
+                                <img src="./images/download.jpeg" alt="Song 1">
+                            </td>
+                            <td class="song-title">Song 1</td>
+                            <td class="song-artist">Various Artists</td>
+                            <td class="song-duration">3:30</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/song1.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="4">
+                            <td class="song-number">5</td>
+                            <td class="song-image">
+                                <img src="./images/download (3).jpeg" alt="Song 2">
+                            </td>
+                            <td class="song-title">Song 2</td>
+                            <td class="song-artist">Various Artists</td>
+                            <td class="song-duration">3:45</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/song2.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="5">
+                            <td class="song-number">6</td>
+                            <td class="song-image">
+                                <img src="./images/download (2).jpeg" alt="Kissik">
+                            </td>
+                            <td class="song-title">Kissik</td>
+                            <td class="song-artist">Various Artists</td>
+                            <td class="song-duration">4:00</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/Kissik.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="6">
+                            <td class="song-number">7</td>
+                            <td class="song-image">
+                                <img src="./images/card4img.jpeg" alt="Stay With Me">
+                            </td>
+                            <td class="song-title">Stay With Me</td>
+                            <td class="song-artist">Calvin Harris, Justin Timberlake</td>
+                            <td class="song-duration">3:49</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/song1.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="7">
+                            <td class="song-number">8</td>
+                            <td class="song-image">
+                                <img src="./images/download (4).jpeg" alt="Unstoppable">
+                            </td>
+                            <td class="song-title">Unstoppable</td>
+                            <td class="song-artist">Sia</td>
+                            <td class="song-duration">3:37</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/song2.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="8">
+                            <td class="song-number">9</td>
+                            <td class="song-image">
+                                <img src="./images/kissik.jpeg" alt="Kissik">
+                            </td>
+                            <td class="song-title">Kissik</td>
+                            <td class="song-artist">Various Artists</td>
+                            <td class="song-duration">4:12</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/Kissik.mp3" preload="metadata"></audio>
+                        <tr class="song-row" data-song-index="9">
+                            <td class="song-number">10</td>
+                            <td class="song-image">
+                                <img src="./images/card5img.jpeg" alt="Shape of You">
+                            </td>
+                            <td class="song-title">Shape of You</td>
+                            <td class="song-artist">Ed Sheeran</td>
+                            <td class="song-duration">3:53</td>
+                            <td class="play-button">
+                                <i class="fas fa-play"></i>
+                            </td>
+                        </tr>
+                        <audio src="./audios/song1.mp3" preload="metadata"></audio>
+                    </tbody>
+                </table>
+                <div class="footer">
+                    <div class="line">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="musicplayer">
+            <div class="album">
+                <img src="./images/card1img.jpeg" alt="Album Art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title">Top 50 - Global</p>
+                    <p class="artist-name">Various Artists</p>
+                </div>
+            </div>
+            <div class="player">
+                <div class="controal">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <i class="fa-solid fa-backward"></i>
+                    <i class="fa-solid fa-circle-play play-icon"></i>
+                    <i class="fa-solid fa-forward"></i>
+                    <i class="fa-solid fa-repeat"></i>
+                </div>
+                <div class="bar">
+                    <span class="current-time">0:00</span>
+                    <input type="range" min="0" max="100" value="0" class="playbar">
+                    <span class="total-time">0:00</span>
+                </div>
+            </div>
+            <div class="controals">
+                <i class="fa-solid fa-volume-up"></i>
+                <input type="range" class="volume-slider" min="0" max="100" value="100">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
