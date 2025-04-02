@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="./images/logo.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <style>
+        .install-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .install-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: #282828;
+            min-width: 200px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.5);
+            border-radius: 4px;
+            z-index: 1000;
+            padding: 8px 0;
+        }
+
+        .install-dropdown:hover .install-dropdown-content {
+            display: block;
+        }
+
+        .install-option {
+            padding: 12px 24px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .install-option:hover {
+            background-color: #3E3E3E;
+        }
+
+        .install-option i {
+            font-size: 1.2rem;
+        }
+
+        .install-option span {
+            font-size: 0.9rem;
+        }
+
+        @media screen and (max-width: 768px) {
+            .install-dropdown-content {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                border-radius: 12px 12px 0 0;
+                padding: 16px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="sidebar-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="close-sidebar">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+            </div>
+            <div class="nav">
+                <div class="option" style="opacity:1;">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="#">home</a>
+                </div>
+                <div class="option">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search songs or artists" style="background: none; border: none; color: white; margin-left: 1rem; width: 80%; outline: none;">
+                </div>
+            </div>
+            <div class="library">
+                <div class="libopt option">
+                    <div class="lib">
+                        <img src="./images/library_icon.png">
+                        <a href="#">library</a>
+                    </div>
+                    <div class="add">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <div class="forward">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="libbox">
+                        <p class="par1">Create Your First Playlist</p>
+                        <p class="par2">it;s your choice,we'll help you</p>
+                        <button class="badge">
+                            Create Playlist
+                        </button>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="libbox">
+                        <p class="par1">Let's Find Some Podcasts To Follow</p>
+                        <p class="par2">we'll keep you updated on new episodes</p>
+                        <button class="badge">
+                            Brose Podcast
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="maincontent">
+            <div class="sticky-nav">
+                <div class="nav-ward">
+                    <img src="./images/backward_icon.png">
+                    <img src="./images/forward_icon.png">
+                </div>
+                <div class="nav-bad">
+                    <button class="badge">
+                        Explore Premium
+                    </button>
+                    <div class="install-dropdown">
+                        <button class="badge" style="background-color: black; color:white; margin-left: 5px;">
+                            <i class="fa-solid fa-download"></i>
+                            install app
+                        </button>
+                        <div class="install-dropdown-content">
+                            <a href="https://www.spotify.com/download/windows/" class="install-option" target="_blank">
+                                <i class="fab fa-windows"></i>
+                                <span>Windows</span>
+                            </a>
+                            <a href="https://www.spotify.com/download/mac/" class="install-option" target="_blank">
+                                <i class="fab fa-apple"></i>
+                                <span>Mac</span>
+                            </a>
+                            <a href="https://www.spotify.com/download/android/" class="install-option" target="_blank">
+                                <i class="fab fa-android"></i>
+                                <span>Android</span>
+                            </a>
+                            <a href="https://www.spotify.com/download/ios/" class="install-option" target="_blank">
+                                <i class="fab fa-app-store-ios"></i>
+                                <span>iPhone</span>
+                            </a>
+                        </div>
+                    </div>
+                    <i class="fa-regular fa-user"></i>
+                </div>
+            </div>
+            <div class="cards">
+                <div class="cards">
+                    <H2>
+                        Recently Played
+                    </H2>
+                    <div class="card-container">
+                        <div class="card">
+                            <img src="./images/card1img.jpeg">
+                            <p class="cardtitle">
+                                Top 50-global
+                            </p>
+                            <p class="cardinfo">
+                                Your Daily Updates On  the most plkayed Tracks
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song1.mp3"></audio>
+                        </div>
+                    </div>
+
+                    <H2>
+                        Recent Hits
+                    </H2>
+                    <div class="cards-container">
+                        <div class="card">
+                            <img src="./images/peelings.jpeg">
+                            <p class="cardtitle">
+                                Pushpa: The Rise
+                            </p>
+                            <p class="cardinfo">
+                                Allu Arjun, M. M. Keeravani
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/Peelings.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/kannapa.jpeg">
+                            <p class="cardtitle">
+                                Shiva Shiva Shankara
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/Shiva Shiva Shankara.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/img-card.jpg">
+                            <p class="cardtitle">
+                                Param Sundari
+                            </p>
+                            <p class="cardinfo">
+                                A.R. Rahman, Shreya Ghoshal
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/param.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/download.jpeg">
+                            <p class="cardtitle">
+                                Saripodha Sanivaram
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song1.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/devara.jpg">
+                            <p class="cardtitle">
+                                Devara
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/devara.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/download (2).jpeg">
+                            <p class="cardtitle">
+                                Kalki
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/kalki.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/card4img.jpeg">
+                            <p class="cardtitle">
+                                Leo
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song8.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/download (4).jpeg">
+                            <p class="cardtitle">
+                                Guntur Karam
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song2.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/kissik.jpeg">
+                            <p class="cardtitle">
+                                Pushpa: The Rise - Kissik
+                            </p>
+                            <p class="cardinfo">
+                                Various Artists
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/Kissik.mp3"></audio>
+                        </div>
+                    </div>
+                    <H2>
+                        Trending New For You
+                    </H2>
+                    <div class="cards1-container">
+                        <div class="card">
+                            <img src="./images/card5img.jpeg">
+                            <p class="cardtitle">
+                                Top songs Global
+                            </p>
+                            <p class="cardinfo">
+                                Top songs Global
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song10.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/card6img.jpeg">
+                            <p class="cardtitle">
+                                Top songs india
+                            </p>
+                            <p class="cardinfo">
+                                Your Daily Updates On  the most plkayed Tracks
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song11.mp3"></audio>
+                        </div>
+                        <div class="card">
+                            <img src="./images/card1img.jpeg">
+                            <p class="cardtitle">
+                                Top 50-global
+                            </p>
+                            <p class="cardinfo">
+                                Your Daily Updates On  the most plkayed Tracks
+                            </p>
+                            <div class="play-button">
+                                <i class="fa-solid fa-play"></i>
+                            </div>
+                            <audio src="./audios/song12.mp3"></audio>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <div class="line">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="musicplayer">
+            <div class="album">
+                <img src="./images/card1img.jpeg" alt="Album Art" class="album-art">
+                <div class="song-info">
+                    <p class="song-title">Top 50 - Global</p>
+                    <p class="artist-name">Various Artists</p>
+                </div>
+            </div>
+            <div class="player">
+                <div class="controal">
+                    <i class="fa-solid fa-shuffle"></i>
+                    <i class="fa-solid fa-backward"></i>
+                    <i class="fa-solid fa-circle-play play-icon"></i>
+                    <i class="fa-solid fa-forward"></i>
+                    <i class="fa-solid fa-repeat"></i>
+                </div>
+                <div class="bar">
+                    <span class="current-time">0:00</span>
+                    <input type="range" min="0" max="100" value="0" class="playbar">
+                    <span class="total-time">0:00</span>
+                </div>
+            </div>
+            <div class="controals">
+                <i class="fa-solid fa-volume-up"></i>
+                <input type="range" class="volume-slider" min="0" max="100" value="100">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
